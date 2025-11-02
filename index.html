@@ -226,6 +226,26 @@
 <!-- JAVASCRIPT - THIS WILL BREAK IF YOU TOUCH IT - DON'T DO THAT-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const fadeSections = document.querySelectorAll('.fade-section');
+
+  const appearOptions = {
+    threshold: 0.2,
+  };
+
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+
+  fadeSections.forEach(section => {
+    appearOnScroll.observe(section);
+  });
+});
+	
+document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector(".header");
   const hero = document.querySelector(".hero");
   const hamburger = document.querySelector(".hamburger");
